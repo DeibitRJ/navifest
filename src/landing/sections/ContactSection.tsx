@@ -3,28 +3,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, Instagram, Facebook, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Instagram, Facebook, Linkedin, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { WhatsAppService } from "@/services/whatsappService";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     nombres: "",
     correo: "",
     telefono: "",
-    tipo: "donante", // Valor por defecto
+    tipo: "Donante",
     mensaje: ""
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSendingWhatsApp, setIsSendingWhatsApp] = useState(false);
 
-  // IDs de campos de Google Forms
   const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/1N5C43zzodL3fngD3g64T-fRXEaOyQ5QsQyzFzSwdYlA/formResponse";
   const FIELD_IDS = {
     nombres: "entry.1399437702",
     correo: "entry.416189898",
     telefono: "entry.50690292",
-    tipo: "entry.1278678446", // Asumiendo que este campo es para el tipo
-    mensaje: "entry.353922949" // Ajusta según tu Google Forms
+    tipo: "entry.1278678446",
+    mensaje: "entry.353922949"
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -47,14 +48,12 @@ export default function ContactSection() {
     const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     let valid = true;
 
-    // Validar correo Gmail
     if (!gmailPattern.test(formData.correo)) {
       valid = false;
       alert("Por favor ingresa un correo de Gmail válido (ejemplo@gmail.com)");
       return false;
     }
 
-    // Validar campos requeridos
     if (!formData.nombres.trim() || !formData.correo.trim() || !formData.telefono.trim() || !formData.mensaje.trim()) {
       valid = false;
       alert("Por favor completa todos los campos obligatorios");
@@ -74,7 +73,7 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // Crear FormData para enviar a Google Forms
+      // 1. Enviar a Google Forms
       const formDataToSend = new FormData();
       formDataToSend.append(FIELD_IDS.nombres, formData.nombres);
       formDataToSend.append(FIELD_IDS.correo, formData.correo);
@@ -82,12 +81,22 @@ export default function ContactSection() {
       formDataToSend.append(FIELD_IDS.tipo, formData.tipo);
       formDataToSend.append(FIELD_IDS.mensaje, formData.mensaje);
 
-      // Enviar a Google Forms
-      const response = await fetch(GOOGLE_FORM_ACTION, {
+      await fetch(GOOGLE_FORM_ACTION, {
         method: "POST",
         body: formDataToSend,
-        mode: "no-cors" // Google Forms no permite CORS, usamos no-cors
+        mode: "no-cors"
       });
+
+      // 2. Enviar mensaje de WhatsApp automáticamente
+      if (formData.telefono) {
+        setIsSendingWhatsApp(true);
+        const whatsappResult = await WhatsAppService.sendWelcomeMessage(formData.telefono, formData.nombres);
+        
+        if (!whatsappResult.success) {
+          console.warn('WhatsApp no se pudo enviar:', whatsappResult.error);
+          // No mostramos error al usuario para no interrumpir la experiencia
+        }
+      }
 
       // Limpiar formulario
       setFormData({
@@ -99,13 +108,36 @@ export default function ContactSection() {
       });
 
       // Mostrar mensaje de éxito
-      alert("¡Mensaje enviado correctamente! Te contactaremos pronto.");
+      alert("¡Mensaje enviado correctamente! Te contactaremos pronto." + (formData.telefono ? " También te hemos enviado información por WhatsApp." : ""));
 
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       alert("Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.");
     } finally {
       setIsSubmitting(false);
+      setIsSendingWhatsApp(false);
+    }
+  };
+
+  const handleSendWhatsApp = async () => {
+    if (!formData.telefono) {
+      alert("Por favor ingresa tu número de teléfono primero");
+      return;
+    }
+
+    setIsSendingWhatsApp(true);
+    try {
+      const result = await WhatsAppService.sendWelcomeMessage(formData.telefono, formData.nombres);
+      
+      if (result.success) {
+        alert("¡Te hemos enviado información por WhatsApp! Revisa tu teléfono.");
+      } else {
+        alert("No pudimos enviar el WhatsApp automáticamente. Pero puedes contactarnos directamente.");
+      }
+    } catch (error) {
+      alert("Error al enviar WhatsApp. Pero puedes contactarnos directamente.");
+    } finally {
+      setIsSendingWhatsApp(false);
     }
   };
 
@@ -233,6 +265,9 @@ export default function ContactSection() {
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
                         required
                       />
+                      <p className="text-xs text-amber-300/80">
+                        * Te enviaremos información automáticamente por WhatsApp
+                      </p>
                     </div>
                   </div>
 
@@ -277,15 +312,29 @@ export default function ContactSection() {
                     />
                   </div>
 
-                  <Button 
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Send className="mr-2 h-5 w-5" />
-                    {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="flex-1 bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Send className="mr-2 h-5 w-5" />
+                      {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
+                    </Button>
+                    
+                    <Button 
+                      type="button"
+                      size="lg"
+                      variant="outline"
+                      onClick={handleSendWhatsApp}
+                      disabled={isSendingWhatsApp || !formData.telefono}
+                      className="flex-1 border-2 border-green-500/50 bg-green-500/10 text-green-300 hover:bg-green-500/20 font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <MessageCircle className="mr-2 h-5 w-5" />
+                      {isSendingWhatsApp ? "Enviando..." : "Recibir Info por WhatsApp"}
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>
