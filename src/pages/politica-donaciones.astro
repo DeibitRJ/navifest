@@ -1,15 +1,15 @@
 ---
 import PublicLayout from '@/layouts/PublicLayout.astro';
-import Landing from '@/landing/Landing'
+import DonationPolicy from '@/landing/DonationPolicy';
 const robots = ["index", "follow"];
-const title = "NaviFest | 2025";
+const title = "Política de Donaciones | NaviFest 2025";
 const description = "Evento benéfico realizado por el centro Pastoral de la Universidad Nacional del Santa";
 const keywords = ["Navifest", "benéfico"];
-const url = "https://navifest.vercel.app";
+const url = "https://navifest.vercel.app/politica-donaciones";
 const imageOG = "/gift.svg";
 const imagetwt = "/gift.svg";
 ---
 
 <PublicLayout {robots} {title} {description} {keywords} {url} {imageOG} {imagetwt}>
-	<Landing client:load/>
+    <DonationPolicy client:load />
 </PublicLayout>

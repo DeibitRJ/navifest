@@ -62,12 +62,12 @@ export default function Footer() {
             <h3 className="font-semibold mb-3">Transparencia</h3>
             <ul className="space-y-2 text-sm mb-6">
               <li>
-                <a href="#" className="text-white/70 hover:text-amber-300 transition-colors flex items-center gap-1">
+                <a href="/politica-donaciones" className="text-white/70 hover:text-amber-300 transition-colors flex items-center gap-1">
                   Política de donaciones
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-amber-300 transition-colors flex items-center gap-1">
+                <a href="/fondos" className="text-white/70 hover:text-amber-300 transition-colors flex items-center gap-1">
                   Informe de uso de fondos
                 </a>
               </li>

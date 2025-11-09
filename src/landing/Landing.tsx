@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { HeartHandshake, Gift, ChevronUp } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import HeroSection from "@/landing/sections/HeroSection";
 import MessageSection from "@/landing/sections/MessageSection";
 import ProposalSection from "@/landing/sections/ProposalSection";
