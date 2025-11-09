@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Clock, HeartHandshake, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
-const EVENT_START = new Date("2025-12-20T18:00:00-05:00");
+const EVENT_START = new Date("2025-11-28T18:00:00-05:00");
 
 function useCountdown(targetDate: Date) {
   const [diff, setDiff] = useState(targetDate.getTime() - new Date().getTime());
@@ -30,7 +30,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-      {/* Fondo animado de estrellas */}
       <div className="absolute inset-0">
         <div 
           className="absolute inset-0 opacity-30" 
@@ -103,7 +102,6 @@ export default function HeroSection() {
             </Button>
           </div>
 
-          {/* Contador regresivo */}
           <div className="pt-6">
             <div className="grid grid-cols-4 gap-3 max-w-md">
               {[
@@ -141,7 +139,7 @@ export default function HeroSection() {
           >
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-amber-300" />
-              <span>20 de diciembre, 2025</span>
+              <span>28 de noviembre, 2025</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-amber-300" />
@@ -150,7 +148,6 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* Imagen Hero */}
         <motion.div 
           initial={{ opacity: 0, x: 30 }} 
           animate={{ opacity: 1, x: 0 }} 
@@ -158,7 +155,6 @@ export default function HeroSection() {
           className="relative"
         >
           <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl shadow-black/40">
-            {/* Placeholder con gradiente festivo */}
             <div className="absolute inset-0 bg-linear-to-br from-red-600/90 via-amber-500/90 to-yellow-500/90 flex items-center justify-center">
               <div className="text-center space-y-4 p-8">
                 <div className="text-6xl">🎄</div>
@@ -168,22 +164,20 @@ export default function HeroSection() {
               </div>
             </div>
             
-            {/* Efectos decorativos */}
             <div className="absolute top-0 left-0 w-full h-full">
               <div className="absolute top-10 right-10 w-20 h-20 bg-white/20 rounded-full blur-2xl animate-pulse" />
               <div className="absolute bottom-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-3xl animate-pulse delay-75" />
             </div>
           </div>
 
-          {/* Badge flotante */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.2, type: "spring" }}
             className="absolute -bottom-6 -left-6 bg-linear-to-br from-green-500 to-emerald-600 text-white px-6 py-4 rounded-2xl shadow-xl"
           >
-            <div className="text-sm font-medium opacity-90">Meta de recaudación</div>
-            <div className="text-2xl font-extrabold">S/ 50,000</div>
+            <div className="text-sm font-medium opacity-90">¡Tu apoyo cuenta!</div>
+            <div className="text-2xl font-extrabold">Te esperamos</div>
           </motion.div>
         </motion.div>
       </div>
