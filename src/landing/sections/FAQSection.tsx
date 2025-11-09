@@ -8,49 +8,35 @@ export default function FAQSection() {
 
   const faqs = [
     {
-      question: "¿Cómo se utilizarán los fondos recaudados?",
-      answer: "El 100% de las donaciones y el excedente de la venta de entradas se destinarán a alimentación, salud y educación para familias vulnerables. Publicaremos un informe detallado de uso de fondos a los 7 días posteriores al evento, con transparencia total sobre beneficiarios, montos y acciones realizadas."
+      question: "¿Cómo se utilizarán las donaciones?",
+      answer:
+        "Todo lo recaudado será destinado a la compra de insumos para la chocolatada, panetones, juguetes y artículos para el compartir navideño. Las donaciones materiales —como juguetes o dulces— se entregarán directamente a los niños y niñas de hasta 13 años de edad, pertenecientes a familias de bajos recursos de nuestra comunidad."
     },
     {
       question: "¿Puedo donar sin asistir al evento?",
-      answer: "¡Por supuesto! Puedes realizar tu donación directamente desde esta web usando Yape, Plin, transferencia bancaria o tarjeta de crédito/débito. Cada aporte, sin importar el monto, suma y transforma vidas."
+      answer:
+        "¡Sí! Puedes colaborar sin estar presente. Solo necesitas ponerte en contacto con alguno de los miembros voluntarios para entregar tu donación física, o hacerlo de forma monetaria escaneando nuestro código QR oficial."
     },
     {
-      question: "¿El evento es familiar?",
-      answer: "Sí, NaviFest es un evento 100% familiar. Contamos con zona infantil exclusiva, seguridad permanente y actividades para todas las edades. Los niños menores de 5 años ingresan gratis."
+      question: "¿Qué puedo donar?",
+      answer:
+        "Aceptamos juguetes nuevos o en buen estado, dulces, panetones, artículos escolares y cualquier detalle que pueda llevar alegría a los niños. También puedes donar dinero mediante el QR disponible en el evento o en nuestra web."
     },
     {
-      question: "¿Cómo compro mi entrada?",
-      answer: "Las entradas están disponibles en plataformas autorizadas o directamente en este sitio web. Recibirás tu entrada digital vía correo electrónico. Recuerda que tu entrada también es un acto de solidaridad."
+      question: "¿Dónde se realizará el evento?",
+      answer:
+        "El NaviFest se llevará a cabo en el Anfiteatro de la Universidad Nacional del Santa. Contaremos con señalización y apoyo del equipo de voluntarios para orientarte al llegar."
     },
-    {
-      question: "¿Qué debo llevar el día del evento?",
-      answer: "Necesitas tu entrada digital (en celular o impresa), documento de identidad, ropa cómoda acorde al clima y muchas ganas de disfrutar y compartir. No olvides traer efectivo para las compras en la feria solidaria."
-    },
-    {
-      question: "¿Aceptan donaciones de empresas?",
-      answer: "Sí, recibimos donaciones corporativas y ofrecemos certificados tributarios. Para coordinar aportes empresariales o donaciones en especie, escríbenos a contacto@navifest.org o completa el formulario de contacto."
-    },
-    {
-      question: "¿Habrá estacionamiento disponible?",
-      answer: "Sí, el recinto cuenta con estacionamiento limitado. También recomendamos el uso de transporte público o compartir vehículos. Contaremos con señalización y personal de apoyo para guiarte."
-    },
-    {
-      question: "¿Puedo llevar alimentos o bebidas?",
-      answer: "Por políticas del recinto, no se permite el ingreso de alimentos ni bebidas del exterior. Dentro del evento habrá variedad de opciones gastronómicas a precios accesibles, y parte de las ventas apoyan la causa."
-    }
   ];
 
   return (
     <section id="faq" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Decoración */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 right-10 text-9xl">❓</div>
         <div className="absolute bottom-20 left-10 text-9xl">💡</div>
       </div>
 
       <div className="max-w-4xl mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,7 +57,6 @@ export default function FAQSection() {
           </p>
         </motion.div>
 
-        {/* FAQs */}
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
             <motion.div
@@ -125,32 +110,6 @@ export default function FAQSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* CTA adicional */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 text-center"
-        >
-          <Card className="bg-linear-to-br from-blue-500/10 to-purple-500/10 border-blue-400/20">
-            <CardContent className="p-8">
-              <h3 className="text-xl font-bold text-white mb-3">
-                ¿No encontraste tu respuesta?
-              </h3>
-              <p className="text-white/75 mb-6">
-                Nuestro equipo está listo para ayudarte. Escríbenos y te responderemos lo antes posible.
-              </p>
-              <button 
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300 hover:scale-105 font-medium"
-              >
-                Contactar al Equipo
-              </button>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </section>
   );
