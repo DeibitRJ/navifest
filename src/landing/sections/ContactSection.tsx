@@ -8,38 +8,119 @@ import { motion } from "framer-motion";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    type: "donor",
-    message: ""
+    nombres: "",
+    correo: "",
+    telefono: "",
+    tipo: "donante", // Valor por defecto
+    mensaje: ""
   });
 
-  const handleSubmit = () => {
-    // Validaciones básicas
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Por favor completa los campos obligatorios");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // IDs de campos de Google Forms
+  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/1N5C43zzodL3fngD3g64T-fRXEaOyQ5QsQyzFzSwdYlA/formResponse";
+  const FIELD_IDS = {
+    nombres: "entry.1399437702",
+    correo: "entry.416189898",
+    telefono: "entry.50690292",
+    tipo: "entry.1278678446", // Asumiendo que este campo es para el tipo
+    mensaje: "entry.353922949" // Ajusta según tu Google Forms
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    
+    if (name === 'nombres') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value.toUpperCase()
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    let valid = true;
+
+    // Validar correo Gmail
+    if (!gmailPattern.test(formData.correo)) {
+      valid = false;
+      alert("Por favor ingresa un correo de Gmail válido (ejemplo@gmail.com)");
+      return false;
+    }
+
+    // Validar campos requeridos
+    if (!formData.nombres.trim() || !formData.correo.trim() || !formData.telefono.trim() || !formData.mensaje.trim()) {
+      valid = false;
+      alert("Por favor completa todos los campos obligatorios");
+      return false;
+    }
+
+    return valid;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
       return;
     }
-    
-    // Aquí iría la lógica de envío
-    console.log("Form submitted:", formData);
-    alert("¡Gracias por tu mensaje! Te contactaremos pronto.");
-    setFormData({ name: "", email: "", phone: "", type: "donor", message: "" });
+
+    setIsSubmitting(true);
+
+    try {
+      // Crear FormData para enviar a Google Forms
+      const formDataToSend = new FormData();
+      formDataToSend.append(FIELD_IDS.nombres, formData.nombres);
+      formDataToSend.append(FIELD_IDS.correo, formData.correo);
+      formDataToSend.append(FIELD_IDS.telefono, formData.telefono);
+      formDataToSend.append(FIELD_IDS.tipo, formData.tipo);
+      formDataToSend.append(FIELD_IDS.mensaje, formData.mensaje);
+
+      // Enviar a Google Forms
+      const response = await fetch(GOOGLE_FORM_ACTION, {
+        method: "POST",
+        body: formDataToSend,
+        mode: "no-cors" // Google Forms no permite CORS, usamos no-cors
+      });
+
+      // Limpiar formulario
+      setFormData({
+        nombres: "",
+        correo: "",
+        telefono: "",
+        tipo: "donante",
+        mensaje: ""
+      });
+
+      // Mostrar mensaje de éxito
+      alert("¡Mensaje enviado correctamente! Te contactaremos pronto.");
+
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
+      alert("Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       label: "Email",
-      value: "contacto@navifest.org",
-      link: "mailto:contacto@navifest.org"
+      value: "202114013@uns.edu.pe",
+      link: "mailto:202114013@uns.edu.pe"
     },
     {
       icon: Phone,
       label: "WhatsApp",
-      value: "(+51) 999-999-999",
-      link: "https://wa.me/51999999999"
+      value: "(+51) 951011604",
+      link: "https://wa.link/tpuxiu"
     },
     {
       icon: MapPin,
@@ -55,16 +136,19 @@ export default function ContactSection() {
     { icon: Linkedin, label: "LinkedIn", link: "https://linkedin.com/company/navifest", handle: "NaviFest" }
   ];
 
+  const tipoOpciones = [
+    { value: "Donante", label: "Donante" },
+    { value: "Voluntario", label: "Voluntario" },
+  ];
+
   return (
     <section id="contact" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Decoración */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-40 left-20 text-9xl">📧</div>
         <div className="absolute bottom-40 right-20 text-9xl">💬</div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +175,6 @@ export default function ContactSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Formulario */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -104,91 +187,110 @@ export default function ContactSection() {
                 <CardTitle className="text-2xl text-white">Envíanos un mensaje</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm text-white/80 font-medium">
-                        Nombre completo *
-                      </label>
-                      <Input
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Juan Pérez"
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm text-white/80 font-medium">
-                        Correo electrónico *
-                      </label>
-                      <Input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="tu@email.com"
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
-                      />
-                    </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <label className="text-sm text-white/80 font-medium">
+                      Nombres Completos <span className="text-red-400">*</span>
+                    </label>
+                    <Input
+                      name="nombres"
+                      value={formData.nombres}
+                      onChange={handleInputChange}
+                      placeholder="NILTON RAMOS ENCARNACION"
+                      className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
+                      required
+                    />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="text-sm text-white/80 font-medium">
-                        Teléfono (opcional)
+                        Correo electrónico <span className="text-red-400">*</span>
                       </label>
                       <Input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+51 999 999 999"
+                        name="correo"
+                        type="email"
+                        value={formData.correo}
+                        onChange={handleInputChange}
+                        placeholder="ejemplo@gmail.com"
                         className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
+                        required
                       />
+                      <p className="text-xs text-amber-300/80">
+                        * Solo aceptamos correos de Gmail
+                      </p>
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm text-white/80 font-medium">
-                        ¿Cómo quieres apoyar? *
+                        Teléfono <span className="text-red-400">*</span>
                       </label>
-                      <select
-                        value={formData.type}
-                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                        className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
-                      >
-                        <option value="donor" className="bg-red-950">Donante</option>
-                        <option value="volunteer" className="bg-red-950">Voluntario</option>
-                        <option value="sponsor" className="bg-red-950">Patrocinador</option>
-                        <option value="press" className="bg-red-950">Prensa</option>
-                        <option value="other" className="bg-red-950">Otro</option>
-                      </select>
+                      <Input
+                        name="telefono"
+                        type="tel"
+                        value={formData.telefono}
+                        onChange={handleInputChange}
+                        placeholder="+51 999 999 999"
+                        className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50"
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm text-white/80 font-medium">
-                      Cuéntanos más *
+                      ¿Cómo quieres apoyar? <span className="text-red-400">*</span>
+                    </label>
+                    <select
+                      name="tipo"
+                      value={formData.tipo}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+                      required
+                    >
+                      {tipoOpciones.map((opcion) => (
+                        <option 
+                          key={opcion.value} 
+                          value={opcion.value}
+                          className="bg-red-950 text-white"
+                        >
+                          {opcion.label}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-xs text-amber-300/80">
+                      * Selecciona cómo te gustaría participar
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm text-white/80 font-medium">
+                      Mensaje <span className="text-red-400">*</span>
                     </label>
                     <Textarea
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      name="mensaje"
+                      value={formData.mensaje}
+                      onChange={handleInputChange}
                       placeholder="Comparte tus ideas, preguntas o propuestas..."
                       rows={5}
                       className="bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/50 resize-none"
+                      required
                     />
                   </div>
 
                   <Button 
-                    onClick={handleSubmit}
+                    type="submit"
                     size="lg"
-                    className="w-full bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg"
+                    disabled={isSubmitting}
+                    className="w-full bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="mr-2 h-5 w-5" />
-                    Enviar Mensaje
+                    {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
                   </Button>
-                </div>
+                </form>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* Info de contacto */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -196,7 +298,6 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            {/* Información directa */}
             <Card className="bg-linear-to-br from-amber-500/20 to-red-500/20 border-amber-400/30 backdrop-blur-md">
               <CardHeader>
                 <CardTitle className="text-lg text-white">Contacto Directo</CardTitle>
@@ -212,6 +313,8 @@ export default function ContactSection() {
                       {item.link ? (
                         <a 
                           href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-white font-medium hover:text-amber-300 transition-colors wrap-break-word"
                         >
                           {item.value}
@@ -225,18 +328,6 @@ export default function ContactSection() {
               </CardContent>
             </Card>
 
-            {/* Horario */}
-            <Card className="bg-white/5 border-white/10">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-white mb-2">Horario de atención</h3>
-                <p className="text-white/75 text-sm">
-                  Lunes a viernes<br />
-                  9:00 AM - 6:00 PM
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Redes sociales */}
             <Card className="bg-white/5 border-white/10">
               <CardHeader>
                 <CardTitle className="text-lg text-white">Síguenos</CardTitle>
@@ -263,7 +354,6 @@ export default function ContactSection() {
               </CardContent>
             </Card>
 
-            {/* Mensaje motivacional */}
             <Card className="bg-linear-to-br from-purple-500/20 to-blue-500/20 border-purple-400/30">
               <CardContent className="p-6 text-center">
                 <p className="text-white/90 text-sm leading-relaxed italic">
