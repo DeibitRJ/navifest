@@ -20,7 +20,6 @@ export default function DonateSection() {
 
   const handleDonate = () => {
     const amount = selectedAmount || customAmount;
-    // Aquí puedes agregar la lógica para procesar la donación
     console.log("Donación de S/", amount);
   };
 
@@ -42,51 +41,15 @@ export default function DonateSection() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Montos */}
               <div>
-                <h3 className="font-bold mb-4 text-xl">Montos sugeridos</h3>
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  {[20, 50, 100, 200].map((amount) => (
-                    <button
-                      key={amount}
-                      onClick={() => handleAmountSelect(amount)}
-                      className={`px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 shadow-lg ${
-                        selectedAmount === amount
-                          ? "bg-linear-to-r from-red-800 to-red-700 text-amber-300 scale-105"
-                          : "bg-linear-to-r from-red-900 to-red-800 text-amber-300 hover:from-red-800 hover:to-red-700"
-                      }`}
-                    >
-                      S/ {amount}
-                    </button>
-                  ))}
-                </div>
-                
-                <div className="space-y-3">
-                  <h4 className="font-semibold">Otro monto</h4>
-                  <div className="flex gap-2">
-                    <Input
-                      type="number"
-                      placeholder="Ingresa monto"
-                      value={customAmount}
-                      onChange={handleCustomAmountChange}
-                      className="flex-1 border-red-300 focus:border-red-500 bg-white"
-                    />
-                    <Button 
-                      className="bg-red-900 hover:bg-red-800 text-amber-300 font-bold px-8"
-                      onClick={handleDonate}
-                      disabled={!selectedAmount && !customAmount}
-                    >
-                      Donar
-                    </Button>
-                  </div>
-                </div>
+                <h3 className="font-bold mb-4 text-xl">Tu presencia también ayuda</h3>
+                <img src="/reno.webp" alt="" />
 
                 <p className="mt-4 text-sm text-red-900/70">
-                  💳 Aceptamos Yape, Plin, tarjeta y transferencia bancaria
+                  💳 Aceptamos Yape y Plin
                 </p>
               </div>
 
-              {/* QR de Yape */}
               <div className="bg-white rounded-2xl p-6 border-2 border-amber-200">
                 <div className="flex items-center gap-2 mb-4">
                   <Gift className="h-5 w-5 text-red-900" />
@@ -96,7 +59,6 @@ export default function DonateSection() {
                   Escanea el código QR con Yape para realizar tu donación instantáneamente.
                 </p>
                 
-                {/* QR real de Yape */}
                 <div className="aspect-square max-w-[280px] mx-auto rounded-xl bg-linear-to-br from-amber-100 to-yellow-100 border-2 border-amber-300 flex items-center justify-center overflow-hidden">
                   <img 
                     src="/yape.jpeg" 

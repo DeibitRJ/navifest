@@ -46,7 +46,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 items-center gap-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 py-4 grid md:grid-cols-2 items-center gap-12 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 30 }} 
           animate={{ opacity: 1, y: 0 }} 
@@ -156,12 +156,7 @@ export default function HeroSection() {
         >
           <div className="relative aspect-4/5 rounded-3xl overflow-hidden shadow-2xl shadow-black/40">
             <div className="absolute inset-0 bg-linear-to-br from-red-600/90 via-amber-500/90 to-yellow-500/90 flex items-center justify-center">
-              <div className="text-center space-y-4 p-8">
-                <div className="text-6xl">🎄</div>
-                <div className="text-white/90 text-sm max-w-xs mx-auto">
-                  Coloca aquí una foto del evento, collage de artistas o imagen navideña inspiradora
-                </div>
-              </div>
+              <img src="/reno.webp" alt="" />
             </div>
             
             <div className="absolute top-0 left-0 w-full h-full">
