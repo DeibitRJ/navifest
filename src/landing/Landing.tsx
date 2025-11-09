@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { HeartHandshake, Gift, ChevronUp } from "lucide-react";
-import HeroSection from "./sections/HeroSection";
-import MessageSection from "./sections/MessageSection";
-import ProposalSection from "./sections/ProposalSection";
-import PartnerSection from "./sections/PartnerSection";
-import FAQSection from "./sections/FAQSection";
-import ContactSection from "./sections/ContactSection";
+import HeroSection from "@/landing/sections/HeroSection";
+import MessageSection from "@/landing/sections/MessageSection";
+import ProposalSection from "@/landing/sections/ProposalSection";
+import PartnerSection from "@/landing/sections/PartnerSection";
+import FAQSection from "@/landing/sections/FAQSection";
+import ContactSection from "@/landing/sections/ContactSection";
 import Navbar from "@/components/core/Navbar";
 import Footer from "@/components/core/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,10 +30,8 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-red-950 via-red-900 to-amber-900 text-white">
-      {/* NAVBAR */}
       <Navbar scrollToTop={scrollToTop} />
 
-      {/* SECTIONS */}
       <div id="hero">
         <HeroSection />
       </div>
@@ -42,7 +40,6 @@ export default function Landing() {
         <MessageSection />
       </div>
 
-      {/* DONATION SECTION */}
       <section id="donate" className="py-20 md:py-28 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <Card className="bg-linear-to-br from-amber-50 to-yellow-50 text-red-950 border-amber-200 shadow-2xl overflow-hidden">
@@ -60,7 +57,6 @@ export default function Landing() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
-                {/* Montos */}
                 <div>
                   <h3 className="font-bold mb-4 text-xl">Montos sugeridos</h3>
                   <div className="grid grid-cols-2 gap-3 mb-6">
@@ -93,7 +89,6 @@ export default function Landing() {
                   </p>
                 </div>
 
-                {/* QR y Rifa */}
                 <div className="bg-white rounded-2xl p-6 border-2 border-amber-200">
                   <div className="flex items-center gap-2 mb-4">
                     <Gift className="h-5 w-5 text-red-900" />
@@ -103,7 +98,6 @@ export default function Landing() {
                     Tus entradas y donaciones participan en sorteos de canastas navideñas y merchandising exclusivo.
                   </p>
                   
-                  {/* QR Placeholder */}
                   <div className="aspect-square max-w-[280px] mx-auto rounded-xl bg-linear-to-br from-amber-100 to-yellow-100 border-2 border-amber-300 flex items-center justify-center">
                     <div className="text-center p-6">
                       <div className="text-6xl mb-3">📱</div>
@@ -133,10 +127,8 @@ export default function Landing() {
         <ContactSection />
       </div>
 
-      {/* FOOTER */}
       <Footer />
 
-      {/* Scroll to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.button
