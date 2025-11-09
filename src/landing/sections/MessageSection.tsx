@@ -1,33 +1,23 @@
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Users, Gift, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function MessageSection() {
   const impacts = [
-    { icon: Users, label: "Familias", value: "500+", color: "text-rose-300" },
-    { icon: Gift, label: "Regalos", value: "1,000+", color: "text-amber-300" },
-    { icon: Heart, label: "Personas", value: "2,000+", color: "text-red-300" },
-    { icon: Sparkles, label: "Recaudación", value: "S/ 50K", color: "text-yellow-300" }
-  ];
-
-  const benefits = [
-    { emoji: "🍽️", title: "Alimentos nutritivos", desc: "Canastas navideñas completas" },
-    { emoji: "🏥", title: "Atención médica", desc: "Medicamentos y consultas" },
-    { emoji: "📚", title: "Útiles escolares", desc: "Material educativo de calidad" },
-    { emoji: "🎁", title: "Regalos navideños", desc: "Ilusión para los más pequeños" }
+    { icon: Users, label: "Familias beneficiadas", value: "20+", color: "text-rose-300" },
+    { icon: Gift, label: "Regalos entregados", value: "100+", color: "text-amber-300" },
+    { icon: Heart, label: "Voluntarios unidos", value: "30+", color: "text-red-300" },
+    { icon: Sparkles, label: "Sonrisas compartidas", value: "∞", color: "text-yellow-300" }
   ];
 
   return (
     <section id="about" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Decoración de fondo */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 text-9xl">❄️</div>
         <div className="absolute bottom-20 right-10 text-9xl">🎄</div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Encabezado */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,7 +39,6 @@ export default function MessageSection() {
           </p>
         </motion.div>
 
-        {/* Contenido principal */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,9 +55,10 @@ export default function MessageSection() {
             
             <div className="bg-amber-400/10 border-l-4 border-amber-400 rounded-r-2xl p-6 mb-6">
               <p className="text-white/95 font-medium leading-relaxed">
-                <span className="text-amber-300 font-bold">Nuestra misión es simple pero poderosa:</span> recaudar 
-                fondos para brindar apoyo integral a familias de escasos recursos de nuestra comunidad, garantizándoles 
-                acceso a servicios esenciales y momentos de alegría en esta Navidad.
+                <span className="text-amber-300 font-bold">Nuestra misión es sencilla pero llena de corazón: </span> 
+                en esta edición de <strong>NaviFest</strong>, la entrada será un regalo 🎁 — ya sea un juguete, dulces u otros 
+                artículos navideños — destinados a niños y familias de escasos recursos de nuestra comunidad. 
+                También se aceptan donaciones monetarias, pero priorizamos el gesto de regalar y compartir alegría en persona. ✨
               </p>
             </div>
 
@@ -80,46 +70,6 @@ export default function MessageSection() {
           </div>
         </motion.div>
 
-        {/* Beneficios */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mb-16"
-        >
-          <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-8">
-            ¿A quién ayudaremos?
-          </h3>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * idx, duration: 0.5 }}
-              >
-                <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-all duration-300 h-full group hover:scale-105 hover:shadow-xl hover:shadow-amber-500/10">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                      {benefit.emoji}
-                    </div>
-                    <h4 className="font-bold text-white text-lg mb-2">
-                      {benefit.title}
-                    </h4>
-                    <p className="text-white/70 text-sm">
-                      {benefit.desc}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Estadísticas de impacto */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -159,7 +109,6 @@ export default function MessageSection() {
           </div>
         </motion.div>
 
-        {/* CTA final */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
