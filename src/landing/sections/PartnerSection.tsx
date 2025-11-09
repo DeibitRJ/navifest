@@ -5,29 +5,6 @@ import { Handshake, Building2, TrendingUp, Award, Users, Heart } from "lucide-re
 import { motion } from "framer-motion";
 
 export default function PartnerSection() {
-  const benefits = [
-    {
-      icon: TrendingUp,
-      title: "Exposición de marca",
-      desc: "Miles de asistentes y alcance en redes sociales"
-    },
-    {
-      icon: Heart,
-      title: "Impacto social",
-      desc: "Asociación con una causa de alto impacto"
-    },
-    {
-      icon: Award,
-      title: "Certificados",
-      desc: "Reportes de transparencia y documentación"
-    },
-    {
-      icon: Users,
-      title: "Activación",
-      desc: "Espacios de marca durante el evento"
-    }
-  ];
-
   const sponsorTiers = [
     { name: "Patrocinador Oro", logos: 3 },
     { name: "Patrocinador Plata", logos: 4 },
@@ -36,14 +13,12 @@ export default function PartnerSection() {
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Decoración */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 text-8xl">🤝</div>
         <div className="absolute bottom-20 right-10 text-8xl">⭐</div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,12 +39,11 @@ export default function PartnerSection() {
           </h2>
 
           <p className="text-lg text-white/80 leading-relaxed">
-            NaviFest es realidad gracias al compromiso de empresas, marcas y personas con corazón solidario 
+            NaviFest es realidad gracias al compromiso de personas con corazón solidario 
             que comparten nuestra visión: una comunidad más justa, unida y llena de esperanza.
           </p>
         </motion.div>
 
-        {/* Mensaje de agradecimiento */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +71,6 @@ export default function PartnerSection() {
           </Card>
         </motion.div>
 
-        {/* Logos de patrocinadores */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -141,69 +114,6 @@ export default function PartnerSection() {
           </div>
         </motion.div>
 
-        {/* Llamado a nuevos aliados */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-12"
-        >
-          <Card className="bg-linear-to-br from-amber-500/20 via-orange-500/20 to-red-500/20 border-amber-400/30 backdrop-blur-md overflow-hidden">
-            <CardContent className="p-8 md:p-12">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold text-white mb-4">
-                    ¿Tu empresa quiere ser parte del cambio?
-                  </h3>
-                  <p className="text-white/80 leading-relaxed mb-6">
-                    Únete como patrocinador de NaviFest y proyecta los valores de tu marca en un evento 
-                    que inspira, emociona y transforma vidas. Ofrecemos diferentes niveles de patrocinio 
-                    con beneficios de visibilidad, branding y participación activa.
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <Button 
-                      size="lg"
-                      className="bg-white text-red-950 hover:bg-white/90 font-bold shadow-lg"
-                    >
-                      Quiero Ser Aliado
-                    </Button>
-                    <Button 
-                      size="lg"
-                      variant="outline"
-                      className="border-2 border-white/40 bg-white/5 hover:bg-white/10 text-white"
-                    >
-                      Ver Planes
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {benefits.map((benefit, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                      className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/15 transition-all duration-300"
-                    >
-                      <benefit.icon className="h-8 w-8 text-amber-300 mb-3" />
-                      <h4 className="font-semibold text-white text-sm mb-1">
-                        {benefit.title}
-                      </h4>
-                      <p className="text-xs text-white/70">
-                        {benefit.desc}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Voluntarios */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

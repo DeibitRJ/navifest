@@ -1,71 +1,104 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Music, ShoppingBag, Baby, UtensilsCrossed, Gift, Camera, Calendar, Sparkles } from "lucide-react";
+import { Music, Gift, Camera, Calendar, Sparkles, Download } from "lucide-react";
 import { motion } from "framer-motion";
+import { usePDFDownload } from "@/hooks/usePDFDownload";
 
 export default function ProposalSection() {
   const activities = [
     {
       icon: Music,
-      title: "Conciertos en Vivo",
-      description: "Artistas locales, bandas emergentes y talentos reconocidos darán lo mejor de sí en el escenario. Desde villancicos renovados hasta rock, pop y folclore, habrá música para todos los gustos y edades.",
-      color: "from-purple-500/20 to-pink-500/20",
-      iconColor: "text-purple-300",
+      title: "Show en Vivo",
+      description:
+        "Artistas invitados y presentaciones especiales llenarán el escenario con música, alegría y espíritu navideño. 🎶",
+      color: "from-red-500/20 to-rose-500/20",
+      iconColor: "text-rose-300",
       badge: "Escenario Principal"
     },
     {
-      icon: ShoppingBag,
-      title: "Feria Solidaria",
-      description: "Emprendedores locales, artesanos y pequeños negocios ofrecerán productos únicos. Cada compra apoya tanto al vendedor como a la causa principal del evento.",
-      color: "from-green-500/20 to-emerald-500/20",
-      iconColor: "text-green-300",
-      badge: "Apoya Local"
-    },
-    {
-      icon: Baby,
-      title: "Zona Infantil y Familiar",
-      description: "Actividades recreativas, pintura de rostros, cuentacuentos navideños y la visita sorpresa de Papá Noel. Un espacio seguro para que los más pequeños vivan la magia de la Navidad.",
-      color: "from-blue-500/20 to-cyan-500/20",
-      iconColor: "text-blue-300",
-      badge: "100% Familiar"
-    },
-    {
-      icon: UtensilsCrossed,
-      title: "Gastronomía Local",
-      description: "Sabores tradicionales y platos navideños preparados por cocineros de la comunidad. Food trucks con opciones para todos los gustos. Parte de las ganancias se destinan a la causa.",
-      color: "from-orange-500/20 to-amber-500/20",
-      iconColor: "text-orange-300",
-      badge: "Delicioso"
-    },
-    {
       icon: Gift,
-      title: "Rifa Solidaria",
-      description: "Con tu entrada o donación participas automáticamente en sorteos de canastas navideñas, merchandising exclusivo del evento y premios especiales de nuestros patrocinadores.",
-      color: "from-red-500/20 to-rose-500/20",
-      iconColor: "text-red-300",
-      badge: "Participa y Gana"
+      title: "Recepción de Donaciones",
+      description:
+        "Durante el evento recibiremos los regalos que cada asistente traerá: juguetes, dulces o artículos navideños. Cada obsequio será destinado a una familia que lo necesita. 🎁",
+      color: "from-amber-500/20 to-orange-500/20",
+      iconColor: "text-amber-300",
+      badge: "Tu Entrada es un Regalo"
     },
     {
       icon: Camera,
-      title: "Experiencias Compartidas",
-      description: "Photobooth navideño, mural colaborativo de deseos y espacios instagrameables para que captures y compartas la alegría del momento.",
-      color: "from-yellow-500/20 to-amber-500/20",
-      iconColor: "text-yellow-300",
-      badge: "#NaviFest2025"
+      title: "Zona de Fotos",
+      description:
+        "Captura los mejores momentos del NaviFest y sé parte de nuestra galería oficial. Las fotos se compartirán en la página web y redes sociales. 📸",
+      color: "from-blue-500/20 to-cyan-500/20",
+      iconColor: "text-blue-300",
+      badge: "#Navifest2025"
     }
   ];
 
+  const SCHEDULE_ITEMS = [
+    {
+      time: "18:00",
+      title: "Apertura & Bienvenida",
+      desc: "Inicio del evento con palabras de la organización y presentación de la causa solidaria.",
+      highlight: true
+    },
+    {
+      time: "18:20",
+      title: "Presentación de Participantes de Educación",
+      desc: "Estudiantes de la Facultad de Educación compartirán su talento y espíritu navideño en el escenario."
+    },
+    {
+      time: "18:45",
+      title: "Orquesta Santeña",
+      desc: "Ritmos alegres y clásicos navideños interpretados por la reconocida orquesta local."
+    },
+    {
+      time: "19:30",
+      title: "Osvalldo Villanueva",
+      desc: "Show musical lleno de energía, con canciones que harán vibrar al público."
+    },
+    {
+      time: "20:15",
+      title: "Diogo Flores & Fernando Cholán (DJ Set)",
+      desc: "Una mezcla moderna con beats festivos y mucho ritmo para disfrutar en familia."
+    },
+    {
+      time: "21:00",
+      title: "Fer Burgos",
+      desc: "Presentación acústica con temas navideños y mensajes de esperanza."
+    },
+    {
+      time: "21:45",
+      title: "Cierre y Agradecimientos",
+      desc: "Despedida, agradecimientos a los asistentes y mensaje final de unidad y solidaridad."
+    }
+  ];
+
+  const { downloadPDF, isGenerating } = usePDFDownload({
+    onSuccess: () => console.log('PDF descargado exitosamente'),
+    onError: (error) => alert(`Error: ${error}`)
+  });
+
+  const handleDownloadPDF = () => {
+    downloadPDF({
+      scheduleItems: SCHEDULE_ITEMS,
+      activities: activities.map(({ title, description, badge }) => ({
+        title,
+        description,
+        badge
+      }))
+    });
+  };
+
   return (
     <section id="schedule" className="py-20 md:py-28 relative overflow-hidden">
-      {/* Decoración de fondo */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-40 right-20 text-9xl rotate-12">🎵</div>
         <div className="absolute bottom-40 left-20 text-9xl -rotate-12">🎪</div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,7 +124,6 @@ export default function ProposalSection() {
           </p>
         </motion.div>
 
-        {/* Actividades Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {activities.map((activity, idx) => (
             <motion.div
@@ -124,7 +156,6 @@ export default function ProposalSection() {
           ))}
         </div>
 
-        {/* Horario */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -137,15 +168,7 @@ export default function ProposalSection() {
           </h3>
 
           <div className="max-w-4xl mx-auto space-y-4">
-            {[
-              { time: "18:00", title: "Apertura & Bienvenida", desc: "Palabras de la organización y presentación de la causa", highlight: true },
-              { time: "18:30", title: "Banda 1: Inicio Musical", desc: "Rock y pop navideño con los mejores éxitos de la temporada" },
-              { time: "19:15", title: "Show Infantil", desc: "Villancicos, dinámicas y diversión para toda la familia" },
-              { time: "20:00", title: "Banda 2: Invitado Especial", desc: "Artista sorpresa que hará vibrar el escenario" },
-              { time: "21:00", title: "Feria Solidaria Abierta", desc: "Recorre los stands de emprendedores con causa" },
-              { time: "21:30", title: "Gran Rifa Solidaria", desc: "Sorteo de premios especiales y canastas navideñas" },
-              { time: "22:00", title: "Cierre y Agradecimientos", desc: "Reporte preliminar de recaudación y palabras finales" }
-            ].map((item, idx) => (
+            {SCHEDULE_ITEMS.map((item, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, x: -20 }}
@@ -178,9 +201,12 @@ export default function ProposalSection() {
               </motion.div>
             ))}
           </div>
+          
+          <p className="text-center text-white/80 mb-6 mt-12">
+            🎙️ <strong>Animación general:</strong> Dennis — Educación Matemática
+          </p>
         </motion.div>
 
-        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -201,14 +227,17 @@ export default function ProposalSection() {
               className="bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg"
               onClick={() => document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Compra tu Entrada Solidaria
+              Apoya de forma solidaria
             </Button>
             <Button 
               size="lg"
               variant="outline"
-              className="border-2 border-white/30 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm"
+              className="border-2 border-white/30 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm flex items-center gap-2"
+              onClick={handleDownloadPDF}
+              disabled={isGenerating}
             >
-              Descargar Programa PDF
+              <Download className="h-4 w-4" />
+              {isGenerating ? 'Generando...' : 'Descargar Programa PDF'}
             </Button>
           </div>
         </motion.div>

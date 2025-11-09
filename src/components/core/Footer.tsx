@@ -6,7 +6,6 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-red-950/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Información del evento */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center">
@@ -24,7 +23,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contacto */}
           <div>
             <h3 className="font-semibold mb-3">Contacto</h3>
             <ul className="space-y-2 text-white/70 text-sm">
@@ -60,7 +58,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Transparencia */}
           <div>
             <h3 className="font-semibold mb-3">Transparencia</h3>
             <ul className="space-y-2 text-sm mb-6">
@@ -76,11 +73,10 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* Desarrollador */}
             <div className="pt-4 border-t border-white/20">
               <h4 className="font-semibold mb-2 text-xs uppercase text-white/60">Desarrollado por</h4>
               <div className="space-y-1 text-xs text-white/70">
-                <div className="font-medium text-amber-300">Nilton Ramos</div>
+                <div className="font-medium text-amber-300">Nilton Ramos Encarnacion</div>
                 <div className="flex flex-col gap-1">
                   <a 
                     href="https://www.linkedin.com/in/niltonramosencarnacion/"
