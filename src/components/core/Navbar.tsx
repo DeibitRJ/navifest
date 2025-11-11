@@ -48,8 +48,15 @@ export default function Navbar({ scrollToTop }: NavbarProps) {
             ))}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:flex items-center gap-3">
+            <a href="/galeria" target="_blank">
+              <Button
+                className="bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg"
+              >
+                <HeartHandshake className="mr-2 h-4 w-4" />
+                Galeria Navifest 2024
+              </Button>
+            </a>
             <Button
               className="bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg"
               onClick={handleDonateClick}
@@ -90,6 +97,14 @@ export default function Navbar({ scrollToTop }: NavbarProps) {
                   {link.label}
                 </a>
               ))}
+              <a href="/galeria" target="_blank">
+                <Button
+                  className="w-full bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold shadow-lg"
+                >
+                  <HeartHandshake className="mr-2 h-4 w-4" />
+                  Galeria Navifest 2024
+                </Button>
+              </a>
               <Button
                 className="w-full bg-linear-to-r from-amber-400 to-amber-500 text-red-950 hover:from-amber-500 hover:to-amber-600 font-bold mt-4"
                 onClick={() => {
