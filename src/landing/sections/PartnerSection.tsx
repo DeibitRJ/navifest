@@ -1,15 +1,72 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Handshake, Building2, TrendingUp, Award, Users, Heart } from "lucide-react";
+import { Handshake, Building2, Users, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function PartnerSection() {
   const sponsorTiers = [
-    { name: "Patrocinador Oro", logos: 3 },
-    { name: "Patrocinador Plata", logos: 4 },
-    { name: "Aliado", logos: 6 }
+    { 
+      name: "Patrocinador Oro", 
+      size: "large" as const,
+      logos: [
+        { name: "EPISI", logo: "/logos/logo_episi.webp"},
+        { name: "Los Primos", logo: "/logos/los_primos.webp"},
+        { name: "Centro Pastoral", logo: "/logos/logo_pastoral_uns.webp"}
+      ] 
+    },
+    /*
+    { 
+      name: "Patrocinador Plata", 
+      size: "medium" as const,
+      logos: [
+        { name: "Amazon", logo: "/logos/amazon.png"},
+        { name: "Meta", logo: "/logos/meta.png"},
+        { name: "Netflix", logo: "/logos/netflix.png"},
+        { name: "Spotify", logo: "/logos/spotify.png"}
+      ] 
+    },
+    { 
+      name: "Aliado", 
+      size: "small" as const,
+      logos: [
+        { name: "Universidad Nacional del Santa", logo: "/logos/logouns.webp"},
+        { name: "Slack", logo: "/logos/slack.png"},
+        { name: "Figma", logo: "/logos/figma.png"},
+        { name: "Notion", logo: "/logos/notion.png"},
+        { name: "Zoom", logo: "/logos/zoom.png"},
+        { name: "Dropbox", logo: "/logos/dropbox.png"}
+      ] 
+    }*/
   ];
+
+  type SizeType = "large" | "medium" | "small";
+
+  const getMaxSize = (size: SizeType) => {
+    switch(size) {
+      case "large":
+        return { maxWidth: '280px', maxHeight: '160px' };
+      case "medium":
+        return { maxWidth: '200px', maxHeight: '120px' };
+      case "small":
+        return { maxWidth: '150px', maxHeight: '80px' };
+      default:
+        return { maxWidth: '200px', maxHeight: '120px' };
+    }
+  };
+
+  const getPadding = (size: SizeType) => {
+    switch(size) {
+      case "large":
+        return "p-6";
+      case "medium":
+        return "p-5";
+      case "small":
+        return "p-4";
+      default:
+        return "p-4";
+    }
+  };
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
@@ -18,7 +75,7 @@ export default function PartnerSection() {
         <div className="absolute bottom-20 right-10 text-8xl">⭐</div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -78,33 +135,70 @@ export default function PartnerSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mb-16"
         >
-          <h3 className="text-2xl font-bold text-white text-center mb-8">
+          <h3 className="text-2xl font-bold text-white text-center mb-12">
             Patrocinadores y Aliados 2025
           </h3>
 
-          <div className="space-y-8">
+          <div className="space-y-16">
             {sponsorTiers.map((tier, tierIdx) => (
               <div key={tierIdx}>
-                <div className="text-center mb-4">
-                  <span className="inline-block px-4 py-2 rounded-full bg-white/10 text-white/80 text-sm font-medium">
+                <div className="text-center mb-8">
+                  <span className={`inline-block px-8 py-4 rounded-full text-white/90 text-xl font-bold border ${
+                    tier.size === "large" 
+                      ? "bg-linear-to-r from-amber-500/20 to-yellow-500/20 border-amber-400/40 shadow-lg shadow-amber-500/10" 
+                      : tier.size === "medium"
+                      ? "bg-linear-to-r from-gray-400/20 to-gray-300/20 border-gray-400/40 shadow-md shadow-gray-500/10"
+                      : "bg-linear-to-r from-blue-400/20 to-cyan-400/20 border-blue-400/40 shadow-sm shadow-blue-500/10"
+                  }`}>
                     {tier.name}
                   </span>
                 </div>
-                <div className={`grid ${tier.logos === 3 ? 'grid-cols-3' : tier.logos === 4 ? 'grid-cols-4' : 'grid-cols-6'} gap-4`}>
-                  {Array.from({ length: tier.logos }).map((_, idx) => (
+                <div className={`grid ${
+                  tier.logos.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 
+                  tier.logos.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 
+                  'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'
+                } gap-8 md:gap-10`}>
+                  {tier.logos.map((sponsor, idx) => (
                     <motion.div
                       key={idx}
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.05 }}
-                      className="aspect-video rounded-xl bg-white/10 border border-white/20 hover:bg-white/15 transition-all duration-300 flex items-center justify-center group cursor-pointer hover:scale-105"
+                      className={`aspect-video rounded-2xl bg-white/10 border border-white/20 hover:bg-white/15 transition-all duration-300 flex items-center justify-center group cursor-pointer hover:scale-105 ${
+                        getPadding(tier.size)
+                      } ${
+                        tier.size === "large" 
+                          ? "hover:shadow-2xl hover:shadow-amber-500/20" 
+                          : tier.size === "medium"
+                          ? "hover:shadow-lg hover:shadow-gray-500/20"
+                          : "hover:shadow-md hover:shadow-blue-500/20"
+                      }`}
+                      title={sponsor.name}
                     >
-                      <div className="text-center">
-                        <Building2 className="h-8 w-8 text-white/40 mx-auto mb-2 group-hover:text-white/60 transition-colors" />
-                        <span className="text-xs text-white/50 group-hover:text-white/70 transition-colors">
-                          Logo #{idx + 1}
-                        </span>
+                      <div className="relative w-full h-full flex items-center justify-center">
+                        <img
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          className="object-contain transition-all duration-300 group-hover:brightness-110"
+                          style={getMaxSize(tier.size)}
+                        />
+                        
+                        <div 
+                          className="hidden flex-col items-center justify-center text-center w-full h-full"
+                          style={{ display: 'none' }}
+                        >
+                          <Building2 className={`${
+                            tier.size === "large" ? "h-12 w-12" :
+                            tier.size === "medium" ? "h-10 w-10" : "h-8 w-8"
+                          } text-white/40 mx-auto mb-3 group-hover:text-white/60 transition-colors`} />
+                          <span className={`${
+                            tier.size === "large" ? "text-sm" :
+                            tier.size === "medium" ? "text-xs" : "text-xs"
+                          } text-white/50 group-hover:text-white/70 transition-colors line-clamp-2`}>
+                            {sponsor.name}
+                          </span>
+                        </div>
                       </div>
                     </motion.div>
                   ))}
@@ -136,6 +230,33 @@ export default function PartnerSection() {
                 onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
                 Únete como Voluntario
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <Card className="bg-linear-to-r from-green-500/10 to-blue-500/10 border-green-400/20">
+            <CardContent className="p-8">
+              <Heart className="h-12 w-12 text-green-300 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-white mb-3">
+                ¿Quieres ser parte de esta misión?
+              </h3>
+              <p className="text-white/75 max-w-2xl mx-auto mb-6">
+                Si tu empresa u organización quiere unirse a nuestra causa y apoyar este proyecto solidario, 
+                contáctanos para conocer las oportunidades de patrocinio disponibles.
+              </p>
+              <Button 
+                className="bg-green-500 hover:bg-green-600 text-white border-green-600"
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                Quiero Ser Patrocinador
               </Button>
             </CardContent>
           </Card>

@@ -38,42 +38,63 @@ export default function ProposalSection() {
 
   const SCHEDULE_ITEMS = [
     {
-      time: "18:00",
+      time: "",
       title: "Apertura & Bienvenida",
-      desc: "Inicio del evento con palabras de la organización y presentación de la causa solidaria.",
+      desc: "Inicio del evento con un mensaje especial de la organización, presentando la causa solidaria, los objetivos del encuentro y dando la bienvenida a todos los asistentes.",
       highlight: true
     },
     {
-      time: "18:20",
-      title: "Presentación de Participantes de Educación",
-      desc: "Estudiantes de la Facultad de Educación compartirán su talento y espíritu navideño en el escenario."
+      time: "",
+      title: "Sonora Santeña",
+      desc: "Show musical a cargo de la reconocida orquesta local, con ritmos festivos, temas navideños y un ambiente lleno de energía para abrir la celebración con alegría."
     },
     {
-      time: "18:45",
-      title: "Orquesta Santeña",
-      desc: "Ritmos alegres y clásicos navideños interpretados por la reconocida orquesta local."
-    },
-    {
-      time: "19:30",
+      time: "",
       title: "Osvalldo Villanueva",
-      desc: "Show musical lleno de energía, con canciones que harán vibrar al público."
+      desc: "Presentación musical en vivo con un repertorio cargado de emoción y melodías que conectan con el espíritu de la temporada."
     },
     {
-      time: "20:15",
+      time: "",
       title: "Diogo Flores & Fernando Cholán (DJ Set)",
-      desc: "Una mezcla moderna con beats festivos y mucho ritmo para disfrutar en familia."
+      desc: "Un DJ set moderno con sonidos electrónicos y beats festivos que llenarán el ambiente de ritmo, diversión y un toque contemporáneo para todos los asistentes."
     },
     {
-      time: "21:00",
+      time: "",
       title: "Fer Burgos",
-      desc: "Presentación acústica con temas navideños y mensajes de esperanza."
+      desc: "Interpretación acústica de temas navideños y canciones inspiradoras, creando un espacio de calma, reflexión y esperanza."
     },
     {
-      time: "21:45",
+      time: "",
+      title: "Daniel Medina",
+      desc: "Actuación musical destacada con interpretaciones llenas de sensibilidad y un estilo que invita a disfrutar de la magia de la música en Navidad."
+    },
+    {
+      time: "",
+      title: "Participantes de Educación",
+      desc: "Presentación artística realizada por estudiantes, quienes compartirán bailes navideños llenos de creatividad, entusiasmo y espíritu festivo."
+    },
+    {
+      time: "",
+      title: "Marcos",
+      desc: "Interpretación vocal con un repertorio especial preparado para la ocasión, lleno de melodías que capturan el encanto de estas fiestas."
+    },
+    {
+      time: "",
+      title: "Maribel Astete",
+      desc: "Actuación musical con una voz cálida y expresiva, interpretando canciones que celebran la unión, la familia y la Navidad."
+    },
+    {
+      time: "",
+      title: "Ángel Oyola",
+      desc: "Presentación con un estilo vocal único, compartiendo canciones que transmiten alegría, emoción y el verdadero espíritu navideño."
+    },
+    {
+      time: "",
       title: "Cierre y Agradecimientos",
-      desc: "Despedida, agradecimientos a los asistentes y mensaje final de unidad y solidaridad."
+      desc: "Mensaje final de despedida en el que se agradece a los participantes, artistas y asistentes por su apoyo, destacando el valor de la solidaridad y el sentido comunitario del evento."
     }
   ];
+
 
   const { downloadPDF, isGenerating } = usePDFDownload({
     onSuccess: () => console.log('PDF descargado exitosamente'),

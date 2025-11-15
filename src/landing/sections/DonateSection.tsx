@@ -69,10 +69,10 @@ export default function DonateSection() {
                 
                 <div className="text-center mt-4">
                   <p className="text-red-900/70 text-sm font-medium">
-                    Yapea al: <span className="text-red-900 font-bold">951 011 604</span>
+                    Yapea al: <span className="text-red-900 font-bold">900 749 214</span>
                   </p>
                   <p className="text-red-900/60 text-xs mt-1">
-                    (Nilton Ramos - Centro Pastoral Universitario UNS)
+                    (Ana Belen Estrada Guanilo - Centro Pastoral Universitario UNS)
                   </p>
                 </div>
               </div>

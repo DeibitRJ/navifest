@@ -163,9 +163,9 @@ export default function ContactSection() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, label: "Instagram", link: "https://instagram.com/navifest", handle: "@navifest" },
-    { icon: Facebook, label: "Facebook", link: "https://facebook.com/navifest", handle: "NaviFest Oficial" },
-    { icon: Linkedin, label: "LinkedIn", link: "https://linkedin.com/company/navifest", handle: "NaviFest" }
+    { icon: Instagram, label: "Instagram", link: "https://instagram.com", handle: "@navifest" },
+    { icon: Facebook, label: "Facebook", link: "https://facebook.com", handle: "NaviFest Oficial" },
+    { icon: Linkedin, label: "LinkedIn", link: "https://linkedin.com/company/", handle: "NaviFest" }
   ];
 
   const tipoOpciones = [
